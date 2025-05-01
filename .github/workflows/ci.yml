@@ -59,12 +59,12 @@ jobs:
         # Log in to Docker Hub
         echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
         
-        docker tag collaborative-code-editor_backend-editor-service deaa45112/backend-editor
-        docker push deaa45112/backend-editor
+        docker tag collaborative-code-editor_backend-editor-service hasan45112/backend-editor
+        docker push hasan45112/backend-editor
         
         # Tag and push the frontend image
-        docker tag collaborative-code-editor_frontend deaa45112/angular-frontend
-        docker push deaa45112/angular-frontend
+        docker tag collaborative-code-editor_frontend hasan45112/angular-frontend
+        docker push hasan45112/angular-frontend
 
     - name: Shutdown services
       run: docker-compose down

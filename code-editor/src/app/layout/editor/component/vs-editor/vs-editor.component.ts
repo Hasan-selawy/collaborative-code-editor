@@ -110,10 +110,10 @@ export class VsEditorComponent {
           scrollBeyondLastLine: true,
         });
       });
-  
+
       this.editor.onDidChangeModelContent((event) => {
         if (this.isSettingValue) {
-          return; 
+          return;
         }
         console.log('Editor content changed:',this.editor.getValue(),event);
         const obj = TreeUtils.findObjectByPath(this.folderTreeDTO, this.currentFilePath);
@@ -135,14 +135,14 @@ export class VsEditorComponent {
             console.log('No code selected');
             return;
           }
-  
+
           const startLineNumber = selection?.startLineNumber;
           const selectedCode = editor.getModel()?.getValueInRange(selection);
           console.log('Selected Code:', selectedCode);
           console.log('Start Line Number:', startLineNumber);
           const file = TreeUtils.findObjectByPath(this.folderTreeDTO, this.currentPath);
           console.log(file);
-       
+
           if(TreeUtils.isFileDTO(file.found)){
           this.discussionWebsocketService.createDiscussion({
             fileId:file.found.fileId,
@@ -192,7 +192,7 @@ export class VsEditorComponent {
     if (this.editor) {
       this.editor.dispose();
     }
-    
+
   }
   handleContextMenu(action: ContextMenuAction) {
     const obj = TreeUtils.findObjectByPath(this.folderTreeDTO, action[1]);
@@ -241,9 +241,9 @@ export class VsEditorComponent {
     const file = TreeUtils.findObjectByPath(this.folderTreeDTO, this.currentFilePath);
     if (file.found) {
       if (TreeUtils.isFileDTO(file.found) && (file.found.fileId === fileContent.fileId)) {
-        this.isSettingValue = true; 
+        this.isSettingValue = true;
         this.editor.setValue(fileContent.content);
-        this.isSettingValue = false; 
+        this.isSettingValue = false;
       }
     }
     console.log(fileContent);
@@ -255,21 +255,21 @@ export class VsEditorComponent {
     this.currentPath = event;
     const file = TreeUtils.findObjectByPath(this.folderTreeDTO, this.currentPath);
     console.log(file);
- 
+
     if(TreeUtils.isFileDTO(file.found)){
       this.currentFilePath = event;
     this.fileService.readById(file.found?.fileId).subscribe(res => {
       if(res.data!=undefined){
-        this.isSettingValue = true; 
+        this.isSettingValue = true;
         this.editor.setValue(String(res.data));
-        this.isSettingValue = false; 
+        this.isSettingValue = false;
       }
     });
     this.currentFileName = TreeUtils.extractFileName(this.currentPath);
   }
 
   }
- 
+
 
 
   showRangeInput: boolean = false;
@@ -283,7 +283,7 @@ export class VsEditorComponent {
       if (TreeUtils.isFileDTO(file.found)) {
         this.getFileVersion(file.found.fileId);
         }
-      } 
+      }
     }
   }
 
@@ -298,11 +298,11 @@ export class VsEditorComponent {
     }
   return 'javascript';
   }
-   
+
   numVersions:number=0;
   fileVersions:FileVersionDTO[]=[];
   selectedVersion = 100;
-  coderName:string='deaa';
+  coderName:string='hasan';
   versionNumber:number=1;
   timestamp:string='';
 
@@ -318,7 +318,7 @@ export class VsEditorComponent {
       console.log(res.data);
     });
   }
-  
+
   valueChanged(event:any){
     console.log(event.target.value);
     const fileVersion=this.fileVersions[this.numVersions-event.target.value-1];

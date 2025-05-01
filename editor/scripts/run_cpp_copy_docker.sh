@@ -20,6 +20,13 @@ if ! docker cp "$cpp_files_path/." "$container_id":/usr/src/myapp; then
     exit 1
 fi
 
-docker exec -i "$container_id" sh -c "find . -name '*.cpp' | xargs g++ -o /tmp/myapp && /tmp/myapp"
+output=$(docker exec -i "$container_id" sh -c "find . -name '*.cpp' | xargs g++ -o /tmp/myapp && /tmp/myapp")
+
+if [ -z "$output" ]; then
+    echo "C++ program failed to run or produced no output."
+else
+    echo "C++ Program Output: $output"
+
+fi
 
 docker stop "$container_id" > /dev/null 2>&1
